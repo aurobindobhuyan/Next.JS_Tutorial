@@ -6,7 +6,11 @@ const AllPrams = () => {
    const { params = [] } = router.query;
 
    return (
-      <h1>All Params page {params.length}</h1>
+      <>
+         {
+            params.length > 0 && params.map((ele, i) => <p key={i}>This is the {i + 1}'s route {ele}</p>)
+         }
+      </>
    );
 }
 
