@@ -1,6 +1,7 @@
 import React from "react";
+import Users from "../components/Users";
 
-const Users = ({ data }) => {
+const User = ({ data }) => {
   return (
     <>
       <h1>This is all users page</h1>
@@ -14,22 +15,16 @@ const Users = ({ data }) => {
         </thead>
 
         <tbody>
-          {data.map((ele) => {
-            return (
-              <tr key={ele.id}>
-                <td>{ele.id}</td>
-                <td>{ele.name}</td>
-                <td>{ele.email}</td>
-              </tr>
-            );
-          })}
+          {data.map((ele) => (
+            <Users key={ele.id} {...ele} />
+          ))}
         </tbody>
       </table>
     </>
   );
 };
 
-export default Users;
+export default User;
 
 export async function getStaticProps() {
   const result = await fetch("https://jsonplaceholder.typicode.com/users");
