@@ -1,10 +1,14 @@
 import React from "react";
+import Link from "next/link";
 import Users from "../components/Users";
 
 const User = ({ data }) => {
   return (
     <>
       <h1>This is all users page</h1>
+      <Link href="/">
+        <a>Home</a>
+      </Link>
       <table border={3}>
         <thead>
           <tr>
