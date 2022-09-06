@@ -47,5 +47,14 @@ export async function getStaticProps(context) {
   );
   const data = await response.json();
 
-  return data.id ? { props: { data } } : { notFound: true };
+  if (!data.id) {
+    return { notFound: true };
+  }
+
+  return {
+    props: {
+      data,
+    },
+    revalidate: 10,
+  };
 }
