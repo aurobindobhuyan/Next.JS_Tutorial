@@ -41,7 +41,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  console.log('Post function called');
   const { params } = context;
   const response = await fetch(
     `https://jsonplaceholder.typicode.com/posts/${params.postID}`

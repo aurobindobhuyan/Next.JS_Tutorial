@@ -1,5 +1,5 @@
 import React from "react";
-import Link from 'next/link'
+import Link from "next/link";
 
 const NewsInformation = ({ data }) => {
   return (
@@ -26,15 +26,17 @@ export async function getServerSideProps(context) {
   const response = await fetch(
     `http://localhost:3070/api/news/${params.newsID}`
   );
-  const data = await response.json();
 
-  if (!data._id) {
-    return { notFound: true };
+  if (response.status >= 400) {
+    return {
+      notFound: true,
+    };
+  } else {
+    const data = await response.json();
+    return {
+      props: {
+        data,
+      },
+    };
   }
-
-  return {
-    props: {
-      data,
-    },
-  };
 }

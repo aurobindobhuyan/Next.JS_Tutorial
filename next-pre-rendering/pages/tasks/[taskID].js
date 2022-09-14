@@ -41,7 +41,7 @@ export default SingleTask;
 
 export const getStaticPaths = async () => {
   return {
-    paths: [],
+    paths: [{ params: { taskID: "625905443fe6bb61c5e66040" } }],
     fallback: true,
   };
 };
