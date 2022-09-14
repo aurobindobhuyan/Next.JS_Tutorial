@@ -48,11 +48,14 @@ export const getStaticPaths = async () => {
 
 export async function getStaticProps(context) {
   const { params } = context;
-  console.log("Task function called");
   const result = await fetch(
     `http://localhost:3070/api/tasks/${params.taskID}`
   );
   const data = await result.json();
+
+  if (!data._id) {
+    return { notFound: true };
+  }
 
   return {
     props: {

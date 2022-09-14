@@ -36,7 +36,7 @@ export async function getStaticPaths() {
 
   return {
     paths: [{ params: { postID: "1" } }, { params: { postID: "2" } }],
-    fallback: true,
+    fallback: false,
   };
 }
 
@@ -56,6 +56,5 @@ export async function getStaticProps(context) {
     props: {
       data,
     },
-    revalidate: 10,
   };
 }
