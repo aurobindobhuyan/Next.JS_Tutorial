@@ -12,9 +12,29 @@ const fetcher = async () => {
 };
 
 const Home = () => {
+  const [render, setRender] = useState(false);
   const [input, setInput] = useState("");
   const [isFetch, setIsFetch] = useState(false);
   const { data = [], error } = useSWR(isFetch ? "api/users" : null, fetcher);
+
+  const removeUser = async (id) => {
+    try {
+      const response = await fetch(`/api/users/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const result = await response.json();
+      if (result) {
+        const index = data.findIndex((ele) => ele.id === result[0].id);
+        data.splice(index, 1);
+        setRender(!render);
+      }
+    } catch (error) {
+      return error;
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +50,7 @@ const Home = () => {
         },
       });
       const result = await response.json();
-      data.push(result)
+      data.push(result);
       setInput("");
     } catch (error) {
       return error;
@@ -54,7 +74,12 @@ const Home = () => {
         {!error &&
           data &&
           data.map((ele) => {
-            return <li key={ele.id}>{ele.name}</li>;
+            return (
+              <li key={ele.id}>
+                {ele.name}
+                <button onClick={() => removeUser(ele.id)}>Remove</button>
+              </li>
+            );
           })}
       </ul>
     </div>
